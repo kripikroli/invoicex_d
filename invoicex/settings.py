@@ -57,8 +57,10 @@ INSTALLED_APPS = [
     'corsheaders',
     'djoser',
 
+    'apps.invoice',
     'apps.client',
-    'apps.team'
+    'apps.team',
+    
 ]
 
 MIDDLEWARE = [
