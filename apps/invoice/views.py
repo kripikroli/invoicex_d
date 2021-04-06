@@ -15,7 +15,12 @@ class InvoiceViewset(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         team = self.request.user.teams.first()
-        serializer.save(created_by=self.request.user, team=team)
+        invoice_number = team.first_invoice_number
+        team.first_invoice_number = invoice_number + 1
+        team.save()
+
+        serializer.save(created_by=self.request.user, team=team,
+                        modified_by=self.request.user, invoice_number=invoice_number)
 
     def perform_update(self, serializer):
         obj = self.get_object()
@@ -26,11 +31,11 @@ class InvoiceViewset(viewsets.ModelViewSet):
         serializer.save()
 
 
-# class ItemViewset(viewsets.ModelViewSet):
-#     serializer_class = ItemSerializer
-#     queryset = Item.objects.all()
+class ItemViewset(viewsets.ModelViewSet):
+    serializer_class = ItemSerializer
+    queryset = Item.objects.all()
 
-#     def get_queryset(self):
-#         invoice_id = self.request.GET.get('invoice_id', 0)
+    def get_queryset(self):
+        invoice_id = self.request.GET.get('invoice_id', 0)
 
-#         return self.queryset.filter(invoice__id=invoice_id)
+        return self.queryset.filter(invoice__id=invoice_id)
