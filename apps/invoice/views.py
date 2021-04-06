@@ -29,13 +29,3 @@ class InvoiceViewset(viewsets.ModelViewSet):
             raise PermissionDenied('Wrong object owner')
 
         serializer.save()
-
-
-class ItemViewset(viewsets.ModelViewSet):
-    serializer_class = ItemSerializer
-    queryset = Item.objects.all()
-
-    def get_queryset(self):
-        invoice_id = self.request.GET.get('invoice_id', 0)
-
-        return self.queryset.filter(invoice__id=invoice_id)
