@@ -13,5 +13,6 @@ class TeamSerializer(serializers.ModelSerializer):
             "id",
             "name",
             "company_number",
-            "first_invoice_number"
+            "first_invoice_number",
+            "bank_account"
         )

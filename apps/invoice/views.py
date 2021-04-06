@@ -20,7 +20,7 @@ class InvoiceViewset(viewsets.ModelViewSet):
         team.save()
 
         serializer.save(created_by=self.request.user, team=team,
-                        modified_by=self.request.user, invoice_number=invoice_number)
+                        modified_by=self.request.user, invoice_number=invoice_number, bank_account=team.bank_account)
 
     def perform_update(self, serializer):
         obj = self.get_object()
