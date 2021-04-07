@@ -162,8 +162,15 @@
             <div class="top-left">
                 <div class="invoicex">
                     <h3>{{ team.name }}</h3>
-                    <p>Street Address<p>
-                    <p>City, State<p>
+                    {% if team.address_line_1 or team.address_line_2 %}
+                        <p>{{ team.address_line_1 }} {{ team.address_line_2 }}<p>
+                    {% endif %}
+                    {% if team.city_name or team.state_name %}
+                        <p>{{ team.city_name }} {{ team.state_name }}<p>
+                    {% endif %}
+                    {% if team.country_name or team.zip_code %}
+                        <p>{{ team.country_name }} {{ team.zip_code }}<p>
+                    {% endif %}
                 </div>
 
                 <div class="client">
@@ -184,7 +191,7 @@
 
                 <div class="split">
                     <div class="split-left">Email</div>
-                    <div class="split-right">invoicex@team.com</div>
+                    <div class="split-right">{{ team.email }}</div>
                 </div>
 
                 <div class="split">
