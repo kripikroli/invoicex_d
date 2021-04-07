@@ -1,3 +1,7 @@
+import decimal
+
+from datetime import timedelta
+
 from django.contrib.auth.models import User
 from django.db import models
 from django.utils import timezone
@@ -63,6 +67,9 @@ class Invoice(models.Model):
     def __str__(self):
         return self.client_name
 
+    def get_due_date(self):
+        return self.created_at + timedelta(days=self.due_days)
+
 
 class Item(models.Model):
     invoice = models.ForeignKey(
@@ -76,3 +83,7 @@ class Item(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_gross_amount(self):
+        vat_rate = decimal.Decimal(self.vat_rate/100)
+        return self.net_amount + (self.net_amount * vat_rate)
