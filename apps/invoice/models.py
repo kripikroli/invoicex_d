@@ -43,6 +43,7 @@ class Invoice(models.Model):
     due_days = models.IntegerField(default=14)
     is_credit_for = models.ForeignKey(
         'self', blank=True, null=True, on_delete=models.CASCADE)
+    is_credited = models.BooleanField(default=False)
     is_sent = models.BooleanField(default=False)
     is_paid = models.BooleanField(default=False)
     bank_account = models.CharField(max_length=255, blank=True, null=True)

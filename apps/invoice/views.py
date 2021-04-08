@@ -52,7 +52,7 @@ def generate_pdf(request, invoice_id):
     template_name = 'pdf.html'
 
     if invoice.is_credit_for:
-        template_name = 'pdf_creditnote.html'
+        template_name = 'pdf_credit_note.html'
 
     template = get_template(template_name)
     html = template.render({'invoice': invoice, 'team': team})
